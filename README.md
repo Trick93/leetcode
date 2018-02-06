@@ -1,7 +1,11 @@
 # leetcode
 leetcode problems with javascript
+记录下刷leetcode的一些题目，并不保证是最优解法
+
+---
 
 ## 06-ZigZag Conversion
+
 题意：给定一个字符串和行数,按照锯齿状竖着列，将每一横行的值拼接起来返回新的字符串
 
 **examples**
@@ -40,5 +44,32 @@ var convert = function(s, numRows) {
         index += step
     }
     return arr.join("");
+};
+```
+
+---
+
+## 07-Reverse Integer
+
+题意：给定一个32位带符号整数,将该数反转返回
+
+**examples**
+
+```
+输入：123
+输出：321
+```
+
+**解题思路**：这道题在javascript上没有什么坑,但是题目上有要求环境是一个只能持有32位整数的情况下，也就是整数范围只能在[-2^31,2^31-1]，溢出的返回0
+
+```javascript
+/**
+* @param {number} x
+* @return {number}
+*/
+var reverse = function(x) {
+    let pat = String(Math.abs(x)).split("").reverse().join(""),
+        num =  x < 0 ? parseInt("-"+pat) : parseInt(pat)
+    return num > Math.pow(2,31) || num <= Math.pow(-2,31) ? 0 : num
 };
 ```

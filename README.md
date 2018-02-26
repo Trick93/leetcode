@@ -73,3 +73,48 @@ var reverse = function(x) {
     return num > Math.pow(2,31) || num <= Math.pow(-2,31) ? 0 : num
 };
 ```
+
+---
+
+## 08-String to Interger
+
+题意：字符串转整形
+
+**解题思路**：还是注意int溢出的问题
+
+```javascript
+/**
+* @param {string} str
+* @return {number}
+*/
+var myAtoi = function(str) {
+    let maxInt = Math.pow(2,31)-1,
+        minInt = Math.pow(-2,31),
+        s = isNaN(parseInt(str))? 0 : parseInt(str);
+    if(s >= maxInt) return maxInt;
+    else if(s <= minInt) return minInt;
+    else return s;
+    
+};
+```
+
+---
+
+## 09-Palindrome Number
+
+题意：判定一个整数是不是回文数
+
+**解题思路**：在javascript中判断回文数其实挺方便的，主要用数组的`reverse`进行翻转，注意考虑输入为负数的情况下
+
+```javascript
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+    if(x<0) return false;
+    return String(x).split("").reverse().join("") === String(x)? true : false
+};
+```
+
+当然，还有另一种解法可以判断首尾字符是否相同来实现

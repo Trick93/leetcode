@@ -117,4 +117,27 @@ var isPalindrome = function(x) {
 };
 ```
 
-当然，还有另一种解法可以判断首尾字符是否相同来实现
+---
+
+## 14-Longest Common Prefix
+
+题意：给你一个数组，判断这个数组中最长的相同前缀
+
+**解题思路**：假设数组`['aaabbbc','aaadg','aayrw']`，这样最大的前缀就是`aa`，我们可以取数组的第一项来，用数组的第一项去对比后面其他项，只要发现其中找不到的，就将第一项的字符串截取下，去掉最后一位，重复上次操作检测，直至整个数组对比完成为止
+
+```javascript
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+ var longestCommonPrefix = function(strs) {
+    if(strs.length === 0) return ''
+    let firstStr = strs[0]
+    for(let i=1; i<strs.length; i++){
+        while(strs[i].indexOf(firstStr) == -1){
+            firstStr = firstStr.substr(0,firstStr.length-i)
+        }
+    }
+    return firstStr
+};
+```

@@ -141,3 +141,61 @@ var isPalindrome = function(x) {
     return firstStr
 };
 ```
+
+---
+
+## 15-3Sum
+
+题意：给定一个包含n个整数的数组`nums`,判断`nums`中是否存在三个元素a、b、c,使得a + b + c = 0,找出所有满足条件且不重复的三元组
+
+**exapmles**
+
+```
+nums = [-1, 0, 1, 2, -1, -4]
+
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+```
+
+**解题思路**：一开始使用`for`三层嵌套循环的，时间复杂度增加，导致后面有的测试用例执行时间过长不通过，后面查找资料用别的方式，首先将数组排序，遍历该数组，选取某项为`target`，然后选取`target`之后的 **第一项i** 以及 **最后一项j**，将两数相加与`target`的值进行比较，若相同则满足题意，若`target`值大，则i往后移，反之则j往前移。注意题中还点明了不重复，判断 i 和 j 是否和前一项的相等即可排除重复的
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+let n = nums.sort(sortNumber) // 首先进行排序  由小到大
+    let res = []
+    for(let k=0; k<n.length; k++){ // 开始遍历数组
+        // 由于先排序 因此如果某项的值为正数的话 就可退出循环 找不到两个正数相加会等于一个正数的
+        if(n[k] > 0) break; 
+        // 如果该项与前一项值相等可跳过 因为已经判断过了
+        if(k>0 && n[k] == n[k-1]) continue;
+        // target为两数之和要等于的值
+        let target = 0 - n[k]
+        // 取第一项和最后一项
+        let i = k + 1, j = n.length - 1
+        while (i<j) {
+            if(n[i] + n[j] == target){
+                res.push([n[k], n[i], n[j]])
+                while (i<j && n[i] == n[i+1]) i++ // 判断去重
+                while (i<j && n[j] == n[j-1]) j--
+                i++; j--;
+            } else if (n[i] + n[j] < target) i++
+            else j--
+        }
+    }
+    return res
+};
+
+// 排序
+function sortNumber(a,b)
+{
+    return a - b
+}
+
+```
